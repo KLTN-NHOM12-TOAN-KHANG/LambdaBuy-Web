@@ -1,11 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+0 * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.kltn.lambdabuy.webcontroller;
 
+import java.util.HashMap;
+
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,13 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.kltn.SpringAPILambdaBuy.common.request.authen.LoginDto;
 import com.example.kltn.SpringAPILambdaBuy.common.request.authen.RegisterDto;
+import com.example.kltn.SpringAPILambdaBuy.common.request.cart.Cart;
+import com.example.kltn.SpringAPILambdaBuy.common.response.AuthResponse;
 import com.example.kltn.SpringAPILambdaBuy.common.response.ResponseCommon;
-import com.example.kltn.SpringAPILambdaBuy.common.response.UserResponseDto;
-import com.example.kltn.SpringAPILambdaBuy.entities.UserRole;
 import com.kltn.lambdabuy.service.AuthenticationService;
 import com.kltn.lambdabuy.service.impl.CookieService;
-
-import net.bytebuddy.implementation.bytecode.constant.DefaultValue;
 
 @Controller
 @RequestMapping("/")
@@ -120,26 +119,21 @@ public class AuthenticationController {
     	loginDto.setUsername(id);
     	loginDto.setEmail(id);
     	loginDto.setPassword(pw);
-    	UserResponseDto user = authenticationService.login(loginDto);
-    	
+    	AuthResponse user = authenticationService.login(loginDto);
+    	cookie.createAccessToken("access_token", user.getAccessToken(), 10);
+//    	HashMap<String, Cart> carts = new HashMap<>();
+//    	cookie.create("myCartItems", carts.values()., 10);
     	if(user == null) {
     		model.addAttribute("message", "Sai tên đăng nhập hoặc mật khẩu!");
-    	} else if(!user.getIsEnabled()) {
-    		model.addAttribute("message", "Tài khoản chưa được kích hoạt!");
-    	} else if(user.getIsLocked()) {
-    		model.addAttribute("message", "Tài khoản này đã bị khóa!");
-    	} else if (user.getRole() == UserRole.ADMIN) {
-    		model.addAttribute("message", "Tài khoản không có quyền!");
-    	} else {
+    	}  else {
     		model.addAttribute("message", "Đăng nhập thành công!");
     		session.setAttribute("user", user);
-    		
-    		if(rm == true) {
-    			cookie.create("pass", user.getPassword(), 30);
-    		} else {
-    			cookie.delete("userid");
-    			cookie.delete("pass");
-    		}
+//    		if(rm == true) {
+//    			cookie.create("pass", user.getPassword(), 30);
+//    		} else {
+//    			cookie.delete("userid");
+//    			cookie.delete("pass");
+//    		}
     		
     		String backUrl = (String) session.getAttribute("back-url");
     		if(backUrl != null) {
@@ -153,7 +147,8 @@ public class AuthenticationController {
     @GetMapping("/logout")
     public String logout(Model model) {
     	session.removeAttribute("user");
-    	return "redirect:/home";
+    	cookie.delete("access_token");
+    	return "redirect:/";
     }
     
 }

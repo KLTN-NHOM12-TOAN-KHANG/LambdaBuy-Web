@@ -6,6 +6,7 @@ package com.kltn.lambdabuy.service;
 
 import com.example.kltn.SpringAPILambdaBuy.common.request.authen.LoginDto;
 import com.example.kltn.SpringAPILambdaBuy.common.request.authen.RegisterDto;
+import com.example.kltn.SpringAPILambdaBuy.common.response.AuthResponse;
 import com.example.kltn.SpringAPILambdaBuy.common.response.ResponseCommon;
 import com.example.kltn.SpringAPILambdaBuy.common.response.UserResponseDto;
 import com.example.kltn.SpringAPILambdaBuy.entities.UserEntity;
@@ -17,7 +18,7 @@ import com.example.kltn.SpringAPILambdaBuy.entities.UserEntity;
 public interface AuthenticationService {
     void seedAdmin();
 	ResponseCommon register(RegisterDto registerDto); 
-	UserResponseDto login(LoginDto loginDto);
+	AuthResponse login(LoginDto loginDto);
 	void confirmToken(String token);
 	void activeUser(String email);
 }

@@ -15,30 +15,30 @@
 		<div class=dang-nhap>
 			<h2>ĐĂNG KÝ</h2>
 			<h4 class="label label-success" th:text=${message}></h4>
-			<form action="/register" method="post">
+			<form th:action="@{/register}" th:object="${user}" method="post">
 				<div class="form-group">
-					<label>Tên:</label> <input name="fn" class="form-control"
+					<label>Tên:</label> <input name="fn" required class="form-control"
 						th:value="${fn}" />
 				</div>
 				<div class="form-group">
-					<label>Họ:</label> <input name="ln" class="form-control"
+					<label>Họ:</label> <input name="ln" required class="form-control"
 						th:value="${ln}" />
 				</div>
 				<div class="form-group">
-					<label>Email:</label> <input name="email" class="form-control"
-						th:value="${email}" />
+					<label>Email:</label> <input name="email" required
+						class="form-control" th:value="${email}" />
 				</div>
 				<div class="form-group">
 					<label>Tên đăng nhập:</label> <input name="username"
-						class="form-control" th:value="${username}" />
+						class="form-control" required th:value="${username}" />
 				</div>
 				<div class="form-group">
 					<label>Mật khẩu:</label> <input name="password" type="password"
-						class="form-control" th:value="${password}" />
+						class="form-control" required th:value="${password}" />
 				</div>
 				<div class="form-group">
 					<label>Nhập lại mật khẩu:</label> <input name="repassword"
-						class="form-control" th:value="${repassword}" />
+						class="form-control" required th:value="${repassword}" />
 				</div>
 				<div class="form-group">
 					<button class="btn btn-success">Đăng ký</button>

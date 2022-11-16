@@ -1,0 +1,33 @@
+<div class="row" th:fragment="header">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<a th:href="@{/index}">
+					<img th:src="@{/images/logo.png}" class="img-fluid"
+					style="max-width: 50%; height: auto;" alt="">
+				</a>
+			</div>
+			<div class="col-sm-6">
+				<marquee style="background-color: pink; margin-top: 60px;">Xin
+					chào quý khách</marquee>
+			</div>
+			<div class="col-sm-3">
+				<div class="row">
+					<div class="col-sm-4">
+						<a th:href="@{/login}"><img th:src="@{/images/account.png}"
+							style="margin-top: 50px;" class="account" alt="register"></a>
+					</div>
+					<div class="col-sm-4 cart">
+						<a th:href="@{/shopping-cart/views}"><img th:src="@{/images/cart.ico}"
+							style="margin-top: 50px;" class="cart" alt="cart">
+						
+					</div>
+					<div class="col-sm-4">
+						<a th:href="@{/logout}"><img th:src="@{/images/logout.png}"
+							style="margin-top: 50px;" class="logout" alt="logout"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

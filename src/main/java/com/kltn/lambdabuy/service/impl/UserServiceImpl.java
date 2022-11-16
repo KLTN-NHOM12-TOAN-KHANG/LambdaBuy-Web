@@ -16,7 +16,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.kltn.SpringAPILambdaBuy.common.response.ProductResponseDto;
+import com.example.kltn.SpringAPILambdaBuy.common.response.ResponseCommon;
+import com.example.kltn.SpringAPILambdaBuy.common.response.UserResponseDto;
 import com.example.kltn.SpringAPILambdaBuy.entities.UserEntity;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kltn.lambdabuy.service.UserService;
 
 /**
@@ -27,14 +32,29 @@ import com.kltn.lambdabuy.service.UserService;
 public class UserServiceImpl implements UserService {
     private RestTemplate restTemplate;
     private String crmRestUrl;
+    private ObjectMapper mapper;
     private Logger logger = Logger.getLogger(getClass().getName());
+    
     @Autowired
     public UserServiceImpl(RestTemplate theRestTemplate, 
 	        @Value("${crm.rest.url}") String theUrl) {
-		restTemplate = theRestTemplate;
+			restTemplate = theRestTemplate;
 	        crmRestUrl = theUrl;
+	        mapper = new ObjectMapper();
 	        logger.info("Loaded property:  crm.rest.url=" + crmRestUrl);
     }
+    
+    @Override
+    @Transactional
+	public UserResponseDto currentUser() {
+    	String uri = crmRestUrl + "/getCurrentUser";
+		ResponseEntity<ResponseCommon> response = restTemplate.getForEntity(uri, ResponseCommon.class);
+		if(response.getBody().success) {
+			UserResponseDto user = mapper.convertValue(response.getBody().data, new TypeReference<UserResponseDto>() {});
+			return user;
+		}
+		return null;
+	}
     
     @Override
     @Transactional
@@ -52,6 +72,20 @@ public class UserServiceImpl implements UserService {
         UserEntity result=restTemplate.getForObject(crmRestUrl+"/users"+id, UserEntity.class);
         return result;
     }
+    
+    @Override
+    @Transactional
+    public UserEntity findByEmail(String email) {
+        UserEntity result=restTemplate.getForObject(crmRestUrl+"/user/email/" + email, UserEntity.class);
+        return result;
+    }
+    
+    @Override
+    @Transactional
+    public UserEntity findByUsername(String username) {
+        UserEntity result=restTemplate.getForObject(crmRestUrl+"/user/name/" + username, UserEntity.class);
+        return result;
+    }
 
     @Override
     public void create(UserEntity entity) {
@@ -62,5 +96,7 @@ public class UserServiceImpl implements UserService {
     public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+	
     
 }

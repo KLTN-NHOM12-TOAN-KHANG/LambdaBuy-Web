@@ -25,6 +25,14 @@ public class CookieService {
 		response.addCookie(cookie);
 		return cookie;
 	}
+	
+	public Cookie createAccessToken(String name, String value, int days) {
+		Cookie cookie = new Cookie(name, value);
+		cookie.setMaxAge(days * 24 * 60 * 10);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		return cookie;
+	}
 
 	public Cookie read(String name) {
 		Cookie[] cookies = request.getCookies(); //đọc từ client
@@ -33,6 +41,19 @@ public class CookieService {
 				if (cookie.getName().equalsIgnoreCase(name)) {
 					String decodedValue = new String(Base64.getDecoder().decode(cookie.getValue()));
 					cookie.setValue(decodedValue);
+					return cookie;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public Cookie readAccessToken(String name) {
+		Cookie[] cookies = request.getCookies(); //đọc từ client
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equalsIgnoreCase(name)) {
+					cookie.setValue(cookie.getValue());
 					return cookie;
 				}
 			}

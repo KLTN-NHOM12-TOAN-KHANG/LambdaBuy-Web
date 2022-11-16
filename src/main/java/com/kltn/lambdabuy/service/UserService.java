@@ -6,6 +6,7 @@ package com.kltn.lambdabuy.service;
 
 import java.util.List;
 
+import com.example.kltn.SpringAPILambdaBuy.common.response.UserResponseDto;
 import com.example.kltn.SpringAPILambdaBuy.entities.UserEntity;
 
 /**
@@ -13,9 +14,12 @@ import com.example.kltn.SpringAPILambdaBuy.entities.UserEntity;
  * @author Asus
  */
 public interface UserService {
-    public List<UserEntity> findAll();
+	public UserResponseDto currentUser();
 	
+    public List<UserEntity> findAll();
 	public UserEntity findById(String id);
+	public UserEntity findByEmail(String email);
+	public UserEntity findByUsername(String username);
 	public void create(UserEntity entity);
 	
 	void delete(String id);

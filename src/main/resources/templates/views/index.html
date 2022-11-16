@@ -1,10 +1,100 @@
+<!-- 
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="views/fragments/layout">
+<head th:replace="views/fragments/header :: head" />
+<body>
+	<div id="nav" th:replace="views/fragments/nav :: nav"></div>
+	<div id="page" layout:fragment="content">
+		<div>This is home page content</div>
+		<div th:replace="views/fragments/footer :: footer"></div>
+	</div>
+</body>
+</html>
+ -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="views/fragments/head :: head" />
+<title>TRANG CHỦ</title>
+<style>
+* {
+	padding: 0;
+	box-sizing: border-box;
+}
+
+ul.register li {
+	display: none;
+}
+
+div.account:hover ul.register li {
+	display: block;
+	position: relative;
+}
+
+ul.navbar-nav li:hover a.nav-link {
+	color: red;
+}
+</style>
 </head>
 <body>
-	<h1>aaaaaaaaaaaaaaaaaa</h1>
+	<header th:replace="views/fragments/header :: header" />
+	<div th:replace="views/fragments/nav :: nav" />
+	<div th:replace="views/fragments/carousel :: carousel" />
+	<!------------------------------------------------------------------------------>
+
+
+	<main class="container">
+		<div th:each="product : ${products}" class="d-inline">
+			<div class="col-2 d-inline-block text-center thumbnail mb-1">
+				<a th:href="@{/product/detail/{id}(id = ${product.id})}" target="_self"> <img
+					th:src="@{/images/canon/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den(1).jpg}"
+					class="img-thumbnail" style="position: relative;" alt="">
+					<h6 th:text="${product.name}"></h6> 
+					<h6 th:text="${product.unitPrice}" class="text-danger"></h6> 
+					<span class="badge badge-secondary"><strike><i th:text="22.000.000"></i></strike></span> <br>
+				</a>
+				<a th:href="@{/shopping-cart/add/{id}(id = ${product.id})}">
+					<button class="btn btn-primary">Mua hàng</button>
+				</a>
+			</div>
+		</div>
+	</main>
+
+
+	<!------------------------------------------->
+	<hr>
+	<div class="row">
+		<div class="container">
+			<nav
+				class="navbar navbar-expand-sm bg-white navbar-white row justify-content-center">
+				<form class="form-inline" action="dangky2.html">
+					<input class="form-control mr-sm-2" type="text"
+						style="width: 500px;" placeholder="Địa chỉ email của bạn">
+					<button class="btn btn-danger" type="submit">Đăng kí</button>
+					<span><Strong>ĐĂNG KÍ NHẬN VOUCHER KHUYẾN MÃI</Strong></span>
+				</form>
+			</nav>
+		</div>
+	</div>
+	<br>
+	<!------------------------------------------->
+	<!-- 
+  <div class="row">
+    <div class="container-fluid">
+      <div class="jumbotron text-center">
+        <h6>CÔNG TY CỔ PHẦN ĐÂU TƯ VÀ PHÂN PHỐI ĐỨC TOÀN</h6>
+        info@cameradigital.com <br>
+        Số 12 Nguyễn Văn Bảo, Phường 4, Quận Gò Vấp <br>
+        Hồ Chí Minh, Việt Nam, 700000 <br>
+        08.1949.0540 - 039.368.8267<br><br>
+        Lê Văn Toàn - 18075801     Nguyễn Văn Đức - 18039151 <br>
+        Đề tài: Website bán máy ảnh
+      </div>
+    </div>
+  </div>
+   -->
+	<footer th:replace="views/fragments/footer :: footer" />
 </body>
 </html>

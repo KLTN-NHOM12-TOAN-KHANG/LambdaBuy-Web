@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="views/fragments/head :: head" />
+<title>Cart</title>
+<body>
+	<div>
+		<!--  th:with="cart=${sessionScope['scopeTarget.cartItemService]}" -->
+		<div th:replace="views/fragments/header :: header" />
+		<div th:replace="views/fragments/nav :: nav" />
+
+		<h1>Giỏ hàng</h1>
+		<br />
+		<br />
+
+		<div class="container">
+			<h2>List Products</h2>
+			<div class="rows">
+				<div class="col-sm-9">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Amount</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<div th:each="item : ${CART_ITEMS}">
+								<form th:action="@{/shopping-cart/update}" method="post">
+									<input type="hidden" name="productId" th:value="${item.productId}" />
+									<tr>
+										<td th:text="${item.productId }"></td>
+										<td th:text="${item.name }"></td>
+										<td th:text="${item.price}"></td>
+										<td><input name="quantity" th:value="${item.quantity}"
+											onblur="this.form.submit()" style="width: 50px;"></td>
+										<td th:text="${item.price*item.quantity}"></td>
+										<td><a class="btn btn-primary btn-sm"
+											th:href="@{/shopping-cart/del/{id}(id = ${item.productId })}">Remove</a></td>
+									</tr>
+								</form>
+							</div>
+							
+
+
+						</tbody>
+					</table>
+					<p>Tong Tien:<span th:text="${TOTAL}"></span></p>
+					<hr />
+					<a class="btn btn-primary btn-sm" th:href="@{/shopping-cart/clear}">Clear
+						Cart</a> <a class="btn btn-primary btn-sm" th:href="@{/index}">Add
+						more</a>
+				</div>
+			</div>
+
+		</div>
+
+		<br />
+		<br />
+
+		<jsp:include page="footer.jsp"></jsp:include>
+</body>
+</html>
+
+<div th:replace="views/fragments/footer :: footer" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</body>
+</html>

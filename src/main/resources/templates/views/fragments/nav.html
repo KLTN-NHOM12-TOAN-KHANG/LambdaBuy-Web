@@ -1,0 +1,34 @@
+<div class="row" th:fragment="nav">
+	<div class="container-fluid">
+		<nav
+			class="navbar navbar-expand-sm bg-dark navbar-dark row justify-content-center">
+			<form class="form-inline" action="#">
+				<input class="form-control mr-sm-2" type="text" id="myInput"
+					placeholder="Search">
+				<button class="btn btn-info" type="submit">Search</button>
+			</form>
+
+			<!-- Links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" href="Trang_chu.html">TRANG
+						CHỦ</a></li>
+				<li class="nav-item"><a class="nav-link" href="Gioi_Thieu.html">GIỚI
+						THIỆU</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="https://www.binhminhdigital.com/tin.html">TIN TỨC</a></li>
+				<!-- Dropdown -->
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbardrop"
+					data-toggle="dropdown"> THANH TOÁN </a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="TT_tructiep.html">THANH TOÁN
+							TRỰC TIẾP</a> <a class="dropdown-item" href="TT_tructuyen.html">THANH
+							TOÁN TRỰC TUYẾN</a> <a class="dropdown-item" href="TT_quaNH.html">THANH
+							TOÁN QUA NGÂN HÀNG</a>
+					</div></li>
+				<li class="nav-item"><a class="nav-link" href="Lien_he.html">LIÊN
+						HỆ</a></li>
+			</ul>
+	</div>
+	</nav>
+</div>

@@ -6,19 +6,16 @@ package com.kltn.lambdabuy.service.impl;
 
 import java.util.logging.Logger;
 
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.kltn.SpringAPILambdaBuy.common.request.authen.LoginDto;
 import com.example.kltn.SpringAPILambdaBuy.common.request.authen.RegisterDto;
+import com.example.kltn.SpringAPILambdaBuy.common.response.AuthResponse;
 import com.example.kltn.SpringAPILambdaBuy.common.response.ResponseCommon;
-import com.example.kltn.SpringAPILambdaBuy.common.response.UserResponseDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kltn.lambdabuy.service.AuthenticationService;
@@ -42,6 +39,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		mapper = new ObjectMapper();
 	}
 
+	@Autowired
+	private CookieService cookieService;
+	
 	@Override
 	public void seedAdmin() {
 		throw new UnsupportedOperationException("Not supported yet."); // Generated from
@@ -56,12 +56,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 
 	@Override
-    public UserResponseDto login(LoginDto loginDto) {
+    public AuthResponse login(LoginDto loginDto) {
     	String uri = crmRestUrl + "/authentication/login";
     	ResponseEntity<ResponseCommon> response = restTemplate.postForEntity(uri, loginDto, ResponseCommon.class);
     	if(response.getBody().success) {
-    		UserResponseDto user = mapper.convertValue(response.getBody().data, new TypeReference<UserResponseDto>() {});
-    		return user;
+    		AuthResponse auth = mapper.convertValue(response.getBody().data, new TypeReference<AuthResponse>() {});
+//    		cookie.create("pass", user.getPassword(), 30);
+    		return auth;
     	}
     	return null;
 //         UserEntity user = restTemplate.getForObject(crmRestUrl+"/authentication/login", UserEntity.class);
