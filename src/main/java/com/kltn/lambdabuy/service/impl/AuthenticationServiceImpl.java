@@ -16,9 +16,12 @@ import com.example.kltn.SpringAPILambdaBuy.common.request.authen.LoginDto;
 import com.example.kltn.SpringAPILambdaBuy.common.request.authen.RegisterDto;
 import com.example.kltn.SpringAPILambdaBuy.common.response.AuthResponse;
 import com.example.kltn.SpringAPILambdaBuy.common.response.ResponseCommon;
+import com.example.kltn.SpringAPILambdaBuy.common.response.UserResponseDto;
+import com.example.kltn.SpringAPILambdaBuy.entities.UserRole;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kltn.lambdabuy.service.AuthenticationService;
+import com.kltn.lambdabuy.service.UserService;
 
 /**
  *
@@ -31,7 +34,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	private String crmRestUrl;
 	private Logger logger = Logger.getLogger(getClass().getName());
 	private ObjectMapper mapper;
+	
 	@Autowired
+	private UserService userService;
+	
 	public AuthenticationServiceImpl(RestTemplate theRestTemplate, @Value("${crm.rest.url}") String theUrl) {
 		restTemplate = theRestTemplate;
 		crmRestUrl = theUrl;
@@ -56,13 +62,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 
 	@Override
+	
     public AuthResponse login(LoginDto loginDto) {
     	String uri = crmRestUrl + "/authentication/login";
     	ResponseEntity<ResponseCommon> response = restTemplate.postForEntity(uri, loginDto, ResponseCommon.class);
     	if(response.getBody().success) {
     		AuthResponse auth = mapper.convertValue(response.getBody().data, new TypeReference<AuthResponse>() {});
-//    		cookie.create("pass", user.getPassword(), 30);
-    		return auth;
+    		
+    		UserResponseDto user = userService.findByEmail(auth.getEmail());
+    		if(user.getRole() == UserRole.CUSTOMER) {
+    			return auth;
+    		}
     	}
     	return null;
 //         UserEntity user = restTemplate.getForObject(crmRestUrl+"/authentication/login", UserEntity.class);
@@ -75,17 +85,5 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 //         } else return null;
        
     }
-
-	@Override
-	public void confirmToken(String token) {
-		throw new UnsupportedOperationException("Not supported yet."); // Generated from
-																		// nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-	}
-
-	@Override
-	public void activeUser(String email) {
-		throw new UnsupportedOperationException("Not supported yet."); // Generated from
-																		// nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-	}
 
 }

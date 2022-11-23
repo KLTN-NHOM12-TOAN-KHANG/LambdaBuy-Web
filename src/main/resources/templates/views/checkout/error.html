@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="views/fragments/head :: head" />
+<title>Payment Error</title>
+
+<body>
+	<div th:replace="views/fragments/header :: header" />
+	<div th:replace="views/fragments/nav :: nav" />
+
+	<div align="center">
+		<h1>Payment Error</h1>
+		<br />
+		<h3 th:text="${errorMessage}"></h3>
+		<br />
+	</div>
+
+
+	<div th:replace="views/fragments/footer :: footer" />
+</body>
+</html>

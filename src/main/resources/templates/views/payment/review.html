@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="views/fragments/head :: head" />
+<title>Review</title>
+<style type="text/css">
+	table { border: 0; }
+	table td { padding: 5px; }
+</style>
+<body>
+<div align="center">
+	<h1>Please Review Before Paying</h1>
+	<form action="/execute_payment" method="post">
+	<table>
+		<tr>
+			<td colspan="2"><b>Transaction Details:</b></td>
+			<td>
+				<input type="hidden" name="paymentId" th:value="${paymentId}" />
+				<input type="hidden" name="PayerID" th:value="${PayerID}" />
+			</td>
+		</tr>
+		<tr>
+			<td>Description:</td>
+			<td th:text="${transaction.description}"></td>
+		</tr>
+		<tr>
+			<td>Subtotal:</td>
+			<td th:text="${transaction.amount.details.subtotal}"> USD</td>
+		</tr>
+		<tr>
+			<td>Shipping:</td>
+			<td th:text="${transaction.amount.details.shipping}"> USD</td>
+		</tr>
+		<tr>
+			<td>Tax:</td>
+			<td th:text="${transaction.amount.details.tax}"> USD</td>
+		</tr>
+		<tr>
+			<td>Total:</td>
+			<td th:text="${transaction.amount.total}"> USD</td>
+		</tr>	
+		<tr><td><br/></td></tr>
+		<tr>
+			<td colspan="2"><b>Payer Information:</b></td>
+		</tr>
+		<tr>
+			<td>First Name:</td>
+			<td th:text="${payer.firstName}"></td>
+		</tr>
+		<tr>
+			<td>Last Name:</td>
+			<td th:text="${payer.lastName}"></td>
+		</tr>
+		<tr>
+			<td>Email:</td>
+			<td th:text="${payer.email}"></td>
+		</tr>
+		<tr><td><br/></td></tr>
+		<tr>
+			<td colspan="2"><b>Shipping Address:</b></td>
+		</tr>
+		<tr>
+			<td>Recipient Name:</td>
+			<td th:text="${shippingAddress.recipientName}"></td>
+		</tr>
+		<tr>
+			<td>Line 1:</td>
+			<td th:text="${shippingAddress.line1}"></td>
+		</tr>
+		<tr>
+			<td>City:</td>
+			<td th:text="${shippingAddress.city}"></td>
+		</tr>
+		<tr>
+			<td>State:</td>
+			<td th:text="${shippingAddress.state}"></td>
+		</tr>
+		<tr>
+			<td>Country Code:</td>
+			<td th:text="${shippingAddress.countryCode}"></td>
+		</tr>
+		<tr>
+			<td>Postal Code:</td>
+			<td th:text="${shippingAddress.postalCode}"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" value="Pay Now" />
+			</td>
+		</tr>		
+	</table>
+	</form>
+</div>
+</body>
+</html>

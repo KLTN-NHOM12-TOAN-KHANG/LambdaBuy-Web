@@ -1,30 +1,43 @@
 <div class="row" th:fragment="header">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-3">
-				<a th:href="@{/index}">
+			<div class="col-sm-2 pt-3">
+				<a th:href="@{/}">
 					<img th:src="@{/images/logo.png}" class="img-fluid"
 					style="max-width: 50%; height: auto;" alt="">
 				</a>
 			</div>
-			<div class="col-sm-6">
-				<marquee style="background-color: pink; margin-top: 60px;">Xin
+			<div class="col-sm-5">
+				<marquee style="background-color: pink; margin-top: 40px;">Xin
 					chào quý khách</marquee>
 			</div>
-			<div class="col-sm-3">
+			
+			<div class="col-sm-5 pb-3">
 				<div class="row">
 					<div class="col-sm-4">
-						<a th:href="@{/login}"><img th:src="@{/images/account.png}"
-							style="margin-top: 50px;" class="account" alt="register"></a>
+						<div class="row">
+							<span th:if="${user == null}">
+								<a th:href="@{/login}" type="button" style="margin-top: 30px;" class="btn btn-primary">Login</a>
+							</span>
+			    			<span th:unless="${user == null}">
+				    			<a th:href="@{/user/info}"> <img th:src="@{/images/account.png}"
+									style="margin-top: 30px;" class="account" alt="info"></a>
+								<span th:text="${profile.firstName} + ' ' + ${profile.lastName}"></span>
+			    			</span>
+						</div>
 					</div>
 					<div class="col-sm-4 cart">
-						<a th:href="@{/shopping-cart/views}"><img th:src="@{/images/cart.ico}"
-							style="margin-top: 50px;" class="cart" alt="cart">
-						
+						<div class="row">
+							<a th:href="@{/shopping-cart/views}"><img th:src="@{/images/cart.ico}"
+							style="margin-top: 30px;" class="cart" alt="cart">
+							<span th:text="${inCart}"></span>
+						</div>
 					</div>
 					<div class="col-sm-4">
-						<a th:href="@{/logout}"><img th:src="@{/images/logout.png}"
-							style="margin-top: 50px;" class="logout" alt="logout"></a>
+						<span th:unless="${user == null}">
+			    			<a th:href="@{/logout}"><img th:src="@{/images/logout.png}"
+							style="margin-top: 30px;" class="logout" alt="logout"></a>
+		    			</span>
 					</div>
 				</div>
 			</div>

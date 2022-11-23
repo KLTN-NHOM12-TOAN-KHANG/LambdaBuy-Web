@@ -4,8 +4,6 @@
  */
 package com.kltn.lambdabuy.webcontroller;
 
-import java.util.HashMap;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.kltn.SpringAPILambdaBuy.common.request.authen.LoginDto;
 import com.example.kltn.SpringAPILambdaBuy.common.request.authen.RegisterDto;
-import com.example.kltn.SpringAPILambdaBuy.common.request.cart.Cart;
 import com.example.kltn.SpringAPILambdaBuy.common.response.AuthResponse;
 import com.example.kltn.SpringAPILambdaBuy.common.response.ResponseCommon;
 import com.kltn.lambdabuy.service.AuthenticationService;
@@ -46,27 +43,6 @@ public class AuthenticationController {
 	
 	@GetMapping("/register")
 	public String register(Model model) {
-//		Cookie cookieFn = cookie.read("fn");
-//		Cookie cookieLn = cookie.read("ln");
-//		Cookie cookieEmail = cookie.read("email");
-//		Cookie cookieUsername = cookie.read("username");
-//		Cookie cookiePassword = cookie.read("password");
-//		Cookie cookieRepassword = cookie.read("repassword");
-//		
-//		String firstName = cookieFn.getValue();
-//		String lastName = cookieLn.getValue();
-//		String email = cookieEmail.getValue();
-//		String username = cookieUsername.getValue();
-//		String password = cookiePassword.getValue();
-//		String rePassword = cookieRepassword.getValue();
-//		
-//		model.addAttribute("fn", firstName);
-//		model.addAttribute("ln", lastName);
-//		model.addAttribute("email", email);
-//		model.addAttribute("username", username);
-//		model.addAttribute("password", password);
-//		model.addAttribute("repassword", password);
-//		
 		return "views/authentication/register";
 	}
 	
@@ -120,12 +96,11 @@ public class AuthenticationController {
     	loginDto.setEmail(id);
     	loginDto.setPassword(pw);
     	AuthResponse user = authenticationService.login(loginDto);
-    	cookie.createAccessToken("access_token", user.getAccessToken(), 10);
-//    	HashMap<String, Cart> carts = new HashMap<>();
-//    	cookie.create("myCartItems", carts.values()., 10);
+    	
     	if(user == null) {
     		model.addAttribute("message", "Sai tên đăng nhập hoặc mật khẩu!");
     	}  else {
+    		cookie.createAccessToken("access_token", user.getAccessToken(), 10);
     		model.addAttribute("message", "Đăng nhập thành công!");
     		session.setAttribute("user", user);
 //    		if(rm == true) {
@@ -139,7 +114,7 @@ public class AuthenticationController {
     		if(backUrl != null) {
     			return "redirect:" + backUrl;
     		}
-    		return "redirect:/index";
+    		return "redirect:/shop";
     	}
     	return "views/authentication/login";
     }
@@ -148,7 +123,7 @@ public class AuthenticationController {
     public String logout(Model model) {
     	session.removeAttribute("user");
     	cookie.delete("access_token");
-    	return "redirect:/";
+    	return "redirect:/shop";
     }
     
 }

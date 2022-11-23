@@ -2,87 +2,108 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <!-- Basic -->
 
-<head th:replace="fragments::head">
+<head th:replace="views/fragments/head :: head">
 </head>
 
 <body>
-    <!-- Start Main Top -->
-    <div th:replace="views/fragments/header :: header" />
-    <!-- End Main Top -->
+	<!-- Start Main Top -->
+	<div th:replace="views/fragments/header :: header" />
+	<!-- End Main Top -->
 
-    <!-- Start Main Top -->
-    <header th:replace="views/fragments/nav :: nav" />
-    <!-- End Main Top -->
+	<!-- Start Main Top -->
+	<header th:replace="views/fragments/nav :: nav" />
+	<!-- End Main Top -->
 
-    <!-- End All Title Box -->
-    <div class="mainDiv">
-        <div class="cardStyle">
+	<!-- End All Title Box -->
+	<div class="mainDiv container text-center">
+		<div class="cardStyle row justify-content-center">
+			<!-- 
             <div class="text alert alert-warning" th:if = "${error}">
                 <p th:text="${error}"></p>
             </div>
+             -->
 
-            <form th:action="@{/update-infor}" method="put" name="signupForm" id="signupForm" th:object="${customer}">
-            
-            <img src="" id="signupLogo"/>
-            
-            <h2 class="formTitle">
-              <i>Personal Information</i> 
-            </h2>
+			<form action="/user/update-info" method="post" name="signupForm"
+				id="signupForm">
 
-          <div class="inputDiv">
-            <label class="inputLabel" for="firstname"> First name * </label>
-            <input type="text" th:field = "*{firstName}"  id="firstname" name="firstname" readonly>
-          </div>
-            
-          <div class="inputDiv">
-            <label class="inputLabel" for="lastname">Last name *</label>
-            <input type="text" id="lastname" th:field = "*{lastName}" name="lastname" readonly>
-          </div>
-            
-          <div class="inputDiv">
-            <label class="inputLabel" for="username">User name *</label>
-            <input type="text" id="username" th:field = "*{username}" name="username" readonly>
-          </div>
+				<img src="" id="signupLogo" />
 
-          <div class="inputDiv">
-            <label class="inputLabel" for="phoneNumber">Phone number *</label>
-            <input type="number" id="phoneNumber" th:field = "*{phoneNumber}" name="phoneNumber">
-          </div>
+				<h2 class="formTitle">
+					<i>Personal Information</i>
+				</h2>
+				
+				<table class="table table-responsive">
+					<tr>
+						<td class="w-50 text-left">
+							<label class="inputLabel" for="email">Email *</label>
+						</td>
+						<td class="text-left">
+							<input type="text" id="email" th:value="${user.email}" name="email" readonly>
+						</td>
+					</tr>
+					<tr>
+						<td class="w-25 text-left">
+							<label class="inputLabel" for="firstname"> First name * </label>
+						</td>
+						<td class="w-75 text-left">
+							<input type="text" th:value="${profile.firstName}" id="firstname" name="firstname">
+						</td>
+					</tr>
+					<tr>
+						<td class="w-25 text-left">
+							<label class="inputLabel" for="lastname">Last name *</label>
+						</td>
+						<td class="w-75 text-left">
+							<input type="text" id="lastname" th:value="${profile.lastName}" name="lastname">
+						</td>
+					</tr>
+					<tr>
+						<td class="w-25 text-left">
+							<label class="inputLabel" for="phoneNumber">Phone number *</label>
+						</td>
+						<td class="w-75 text-left">
+							<input type="number" id="phoneNumber" th:value="${profile.phoneNumber}" name="phoneNumber">
+						</td>
+					</tr>
+					<tr>
+						<td class="w-25 text-left">
+							<label class="inputLabel" for="address">Address *</label>
+						</td>
+						<td class="w-75 text-left">
+							<input type="text" id="address" th:value="${profile.address}" name="address">
+						</td>
+					</tr>
+					<tr>
+						<td class="w-25 text-left">
+							<label class="inputLabel" for="avatar">Avatar *</label>
+						</td>
+						<td class="w-75 text-left">
+							<input type="text" id="avatar" th:value="${profile.avatar}" name="avatar">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="buttonWrapper">
+								<button type="submit" id="submitButton" class="submitButton pure-button pure-button-primary">
+									<span>Save</span>
+								</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<h6  class="label label-success text-danger"  th:text=${message}></h6>
+		</div>
+	</div>
+	</section>
 
-          <div class="inputDiv">
-            <label class="inputLabel" for="address">Address *</label>
-            <input type="text" id="address" th:field = "*{address}" name="address">
-          </div>
 
-          <div class="inputDiv">
-            <label class="inputLabel" for="email">City *</label>
-            <input type="text" id="email" th:field = "email" name="email">
-          </div>
+	<!-- End copyright  -->
 
-          <div class="inputDiv">
-            <label class="inputLabel" for="avatar">Country *</label>
-            <input type="text" id="avatar" th:field = "avatar" name="avatar">
-          </div>
-          
-          <div class="buttonWrapper">
-            <button type="submit" id="submitButton" class="submitButton pure-button pure-button-primary">
-              <span>Save</span>
-            </button>
-          </div>
-            
-        </form>
-        </div>
-      </div>
-    </section>
+	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
-    
-    <!-- End copyright  -->
-
-    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-
-    <!-- ALL JS FILES -->
-    <div th:replace="views/fragments/footer :: footer">
-    </div>
+	<!-- ALL JS FILES -->
+	<div th:replace="views/fragments/footer :: footer"></div>
 </body>
 
 </html>

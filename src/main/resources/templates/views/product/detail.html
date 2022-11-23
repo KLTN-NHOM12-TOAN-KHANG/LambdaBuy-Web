@@ -6,7 +6,6 @@
 <body>
 	<div th:replace="views/fragments/header :: header" />
 	<div th:replace="views/fragments/nav :: nav" />
-	<div th:replace="views/fragments/carousel :: carousel" />
 	
 	<div class="row">
       <div class="container"> 
@@ -48,7 +47,6 @@
 
                 </div> 
                 <p class="product-description">
-                	<span th:text="${product.id}"></span>
                 	<span th:text="${product.name}"></span><br>
                   	<span th:text="${product.description}"></span>
                 </p> 
@@ -61,7 +59,7 @@
                 
                 </p> 
                 <div class="action"> 
-                  <a href="../Mua_hang.html" target="_blank">            
+                  <a th:href="@{/shopping-cart/add/{id}(id = ${product.id})}">            
                     <button class="add-to-cart btn btn-default" type="button">MUA NGAY</button>           
                   </a> 
                 </div> 
