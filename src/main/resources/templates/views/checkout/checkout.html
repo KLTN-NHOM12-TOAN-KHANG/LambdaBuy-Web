@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="views/fragments/head :: head" />
+<title>Check Out</title>
+<style type="text/css">
+table {
+	border: 0;
+}
+
+table td {
+	padding: 10px;
+}
+</style>
+
+<body>
+	<header th:replace="views/fragments/header :: header" />
+	<div th:replace="views/fragments/nav :: nav" />
+
+	<div align="center">
+		<h1>Check Out</h1>
+		<br />
+		<form action="/authorize_payment"  method="post">
+			<table>
+				<tr>
+					<th class="w-25 text-left">Product name</th>
+					<th class="w-50 text-center">Quantity</th>
+					<th class="w-25 text-center">Price</th>
+				</tr>
+				<div th:each="cart : ${carts}" class="d-inline">
+					<tr>
+						<td th:text="${cart.name}" class="text-left"></td>
+						<td th:text="${cart.quantity}" class="text-center"></td>
+						<td th:text="${cart.price}" class="text-center"></td>
+					</tr>
+				</div>
+				
+				<tr>
+					<td>Sub total</td>
+					<td></td>
+					<td  th:text="${subTotal}" class="text-center"></td>
+				</tr>
+				<tr>
+					<td>Shipping</td>
+					<td></td>
+					<td  th:text="${shipping}" class="text-center"></td>
+				</tr>
+				<tr>
+					<td>Tax</td>
+					<td></td>
+					<td  th:text="${tax}" class="text-center"></td>
+				</tr>
+				<hr />
+				<tr>
+					<td>Total</td>
+					<td></td>
+					<td  th:text="${total}" class="text-center"></td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center"><input type="submit" class="btn btn-primary"
+						value="Checkout" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+
+	<div th:replace="views/fragments/footer :: footer" />
+
+</body>
+</html>

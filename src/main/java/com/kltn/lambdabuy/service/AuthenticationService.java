@@ -19,6 +19,4 @@ public interface AuthenticationService {
     void seedAdmin();
 	ResponseCommon register(RegisterDto registerDto); 
 	AuthResponse login(LoginDto loginDto);
-	void confirmToken(String token);
-	void activeUser(String email);
 }

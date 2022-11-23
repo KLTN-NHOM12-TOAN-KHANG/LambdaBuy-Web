@@ -7,15 +7,11 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.example.kltn.SpringAPILambdaBuy.common.request.cart.Cart;
-import com.example.kltn.SpringAPILambdaBuy.common.response.ProductResponseDto;
-import com.example.kltn.SpringAPILambdaBuy.common.response.ResponseCommon;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.example.kltn.SpringAPILambdaBuy.common.request.cart.CartDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kltn.lambdabuy.service.CartItemService;
 
@@ -28,7 +24,7 @@ public class CartItemServiceImpl implements CartItemService {
 	private ObjectMapper mapper;
 	private Logger logger = Logger.getLogger(getClass().getName());
 
-	private Map<String, Cart> maps = new HashMap<>();
+	private Map<String, CartDto> maps = new HashMap<>();
 	
 	@Autowired
 	public CartItemServiceImpl(RestTemplate theRestTemplate, @Value("${crm.rest.url}") String theUrl) {
@@ -39,8 +35,8 @@ public class CartItemServiceImpl implements CartItemService {
 	}
 
 	@Override
-	public void add(Cart item) {
-		Cart cartItem = maps.get(item.getProductId());
+	public void add(CartDto item) {
+		CartDto cartItem = maps.get(item.getProductId());
 		if(cartItem == null) {
 			maps.put(item.getProductId(), item);
 		} else {
@@ -54,8 +50,8 @@ public class CartItemServiceImpl implements CartItemService {
 	}
 	
 	@Override
-	public Cart update(String productId, int quantity) {
-		Cart cart = maps.get(productId);
+	public CartDto update(String productId, int quantity) {
+		CartDto cart = maps.get(productId);
 		cart.setQuantity(quantity);
 		return cart;
 	}
@@ -66,7 +62,7 @@ public class CartItemServiceImpl implements CartItemService {
 	}
 	
 	@Override
-	public Collection<Cart> getAllItems() {
+	public Collection<CartDto> getAllItems() {
 		return maps.values();
 	}
 	
@@ -80,6 +76,18 @@ public class CartItemServiceImpl implements CartItemService {
 		return maps.values().stream()
 					.mapToDouble(item -> item.getQuantity() * item.getPrice())
 					.sum();
+	}
+
+	@Override
+	public CartDto findByName(String name) {
+		CartDto cartDto = null;
+		for (CartDto cart : getAllItems()) {
+			if(cart.getName().equals(name)) {
+				cartDto = cart;
+				return cartDto;
+			}
+		}
+		return null;
 	}
 
 }

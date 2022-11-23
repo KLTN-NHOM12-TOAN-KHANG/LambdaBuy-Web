@@ -27,6 +27,8 @@ import com.example.kltn.SpringAPILambdaBuy.common.response.AuthResponse;
 import com.example.kltn.SpringAPILambdaBuy.common.response.ProductResponseDto;
 import com.example.kltn.SpringAPILambdaBuy.common.response.ResponseCommon;
 import com.example.kltn.SpringAPILambdaBuy.common.response.UserResponseDto;
+import com.example.kltn.SpringAPILambdaBuy.entities.OrderEntity;
+import com.example.kltn.SpringAPILambdaBuy.entities.ProductEntity;
 import com.example.kltn.SpringAPILambdaBuy.entities.UserEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -137,6 +139,34 @@ public class ProductServiceImpl implements ProductService {
 					ResponseCommon.class);
 			if(response.getBody().success) {
 				ProductResponseDto product = mapper.convertValue(response.getBody().data, new TypeReference<ProductResponseDto>() {});
+				return product;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
+	@Override
+	public ProductEntity findProductEntityById(String id) {
+		String uri = crmRestUrl + "/product/entity/" + id;
+    	try {
+    		String accessToken = null;
+			Cookie cookieAccessToken = cookieService.readAccessToken("access_token");
+	    	if(cookieAccessToken != null) {
+	    		accessToken = cookieAccessToken.getValue();
+	    	}
+			String token = "Bearer " + accessToken;
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+			headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+			headers.set("Authorization", token);
+			HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
+			// Use Token to get Response
+			ResponseEntity<ResponseCommon> response = restTemplate.exchange(uri, HttpMethod.GET, jwtEntity,
+					ResponseCommon.class);
+			if(response.getBody().success) {
+				ProductEntity product = mapper.convertValue(response.getBody().data, new TypeReference<ProductEntity>() {});
 				return product;
 			}
 		} catch (Exception e) {

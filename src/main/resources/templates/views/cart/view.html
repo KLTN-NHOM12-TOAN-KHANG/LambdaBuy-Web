@@ -43,16 +43,22 @@
 									</tr>
 								</form>
 							</div>
-							
-
-
 						</tbody>
 					</table>
 					<p>Tong Tien:<span th:text="${TOTAL}"></span></p>
 					<hr />
-					<a class="btn btn-primary btn-sm" th:href="@{/shopping-cart/clear}">Clear
-						Cart</a> <a class="btn btn-primary btn-sm" th:href="@{/index}">Add
-						more</a>
+					<a class="btn btn-danger btn-sm" th:href="@{/shopping-cart/clear}">ClearCart</a>
+					<a class="btn btn-info btn-sm" th:href="@{/shop}">Add more</a>
+					<span th:if="${CART_ITEMS.size() != 0 && user != null}">
+						<a class="btn btn-primary btn-sm float-right" th:href="@{/authorize_payment/view}">Checkout</a>
+					</span>
+					<span th:if="${CART_ITEMS.size() != 0 && user == null}">
+						<a class="btn btn-primary btn-sm float-right" th:href="@{/login}">Checkout</a>
+					</span>
+	    			<span th:unless="${CART_ITEMS.size() != 0}">
+		    			<a class="btn btn-primary btn-sm float-right" href="#">Checkout</a>
+	    			</span>
+					
 				</div>
 			</div>
 

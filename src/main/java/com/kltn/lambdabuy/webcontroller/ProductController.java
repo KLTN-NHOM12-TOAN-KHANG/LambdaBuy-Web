@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.kltn.SpringAPILambdaBuy.common.response.ProductResponseDto;
-import com.kltn.lambdabuy.global.GlobalCart;
 import com.kltn.lambdabuy.service.ProductService;
 
 @Controller
@@ -21,7 +20,6 @@ public class ProductController {
     public String detail(Model theModel, @PathVariable("id") String id){
 		ProductResponseDto product = productService.findById(id);
 		theModel.addAttribute("product", product);
-		theModel.addAttribute("cartCount", GlobalCart.cart.size());
         return "views/product/detail";
     }
 	

@@ -1,5 +1,9 @@
 package com.kltn.lambdabuy.webcontroller;
 
+import java.util.Collection;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,16 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.kltn.SpringAPILambdaBuy.common.request.cart.Cart;
+import com.example.kltn.SpringAPILambdaBuy.common.request.cart.CartDto;
 import com.example.kltn.SpringAPILambdaBuy.common.response.ProductResponseDto;
+import com.example.kltn.SpringAPILambdaBuy.common.response.ProfileResponseDto;
+import com.example.kltn.SpringAPILambdaBuy.common.response.UserResponseDto;
 import com.kltn.lambdabuy.service.CartItemService;
 import com.kltn.lambdabuy.service.ProductService;
-import com.kltn.lambdabuy.service.impl.CookieService;
+import com.kltn.lambdabuy.service.UserService;
 
 @Controller
-@RequestMapping("/shopping-cart")
+@RequestMapping
 public class CartController {
 	
 	@Autowired
@@ -26,43 +31,81 @@ public class CartController {
 	@Autowired
 	private CartItemService cartItemService;
 	
-	@GetMapping("/views")
+	@Autowired
+	private UserService userService;
+	
+	@GetMapping("/shopping-cart/views")
 	public String viewCart(Model model) {
+		UserResponseDto user = userService.currentUser();
+		if(user != null) {
+			ProfileResponseDto profile = user.getProfile();
+			model.addAttribute("profile", profile);
+		}
+		model.addAttribute("user", user);
 		model.addAttribute("CART_ITEMS", cartItemService.getAllItems());
 		model.addAttribute("TOTAL", cartItemService.getAmmount());
+		int inCart = cartItemService.getCount();
+    	model.addAttribute("inCart", inCart);
+    	
 		return "views/cart/view";
 	}
 	
-	@GetMapping("/add/{id}")
+	@GetMapping("/shopping-cart/add/{id}")
 	public String addCart(@PathVariable("id") String id) {
 		ProductResponseDto product = productService.findById(id);
 		if(product != null) {
-			Cart item = new Cart();
+			CartDto item = new CartDto();
 			item.setProductId(product.getId());
 			item.setName(product.getName());
 			item.setPrice(product.getUnitPrice());
 			item.setQuantity(1);
 			cartItemService.add(item);
 		}
-		return "redirect:/shopping-cart/views";
+		return "redirect:/shop";
 	}
 	
-	@GetMapping("/clear")
+	@GetMapping("/shopping-cart/clear")
 	public String clearCart() {
 		cartItemService.clear();
 		return "redirect:/shopping-cart/views";
 	}
 	
-	@GetMapping("/del/{id}")
+	@GetMapping("/shopping-cart/del/{id}")
 	public String removeCart(@PathVariable("id") String id) {
 		cartItemService.remove(id);
 		return "redirect:/shopping-cart/views";
 	}
 	
-	@PostMapping("/update")
+	@PostMapping("/shopping-cart/update")
 	public String update(@RequestParam("productId") String productId, @RequestParam("quantity") int quantity) {
 		cartItemService.update(productId, quantity);
 		return "redirect:/shopping-cart/views";
+	}
+	
+	@GetMapping("/authorize_payment/view")
+	public String checkout(HttpServletRequest request) {
+		double subTotal = cartItemService.getAmmount();
+		double shipping = 5;
+		double tax = 5;
+		double total = subTotal + shipping + tax;
+
+		Collection<CartDto> carts = cartItemService.getAllItems();
+		
+		
+		request.setAttribute("carts", carts);
+		request.setAttribute("subTotal", subTotal);
+		request.setAttribute("shipping", shipping);
+		request.setAttribute("tax", tax);
+		request.setAttribute("total", total);
+		
+		UserResponseDto user = userService.currentUser();
+		if(user != null) {
+			ProfileResponseDto profile = user.getProfile();
+			request.setAttribute("profile", profile);
+		}
+		request.setAttribute("user", user);
+		
+		return "views/checkout/checkout";
 	}
 //	@GetMapping("/")
 //	public String viewCart(Model model) {

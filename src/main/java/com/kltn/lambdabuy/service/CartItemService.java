@@ -2,7 +2,7 @@ package com.kltn.lambdabuy.service;
 
 import java.util.Collection;
 
-import com.example.kltn.SpringAPILambdaBuy.common.request.cart.Cart;
+import com.example.kltn.SpringAPILambdaBuy.common.request.cart.CartDto;
 
 public interface CartItemService {
 
@@ -10,14 +10,16 @@ public interface CartItemService {
 
 	int getCount();
 
-	Collection<Cart> getAllItems();
+	Collection<CartDto> getAllItems();
 
 	void clear();
 
-	Cart update(String productId, int quantity);
+	CartDto update(String productId, int quantity);
 
 	void remove(String id);
 
-	void add(Cart item);
+	void add(CartDto item);
+	
+	CartDto findByName(String name);
 
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="views/fragments/head :: head" />
+<title>Payment Receipt</title>
+<style type="text/css">
+	table { border: 0; }
+	table td { padding: 5px; }
+</style>
+<body>
+<div th:replace="views/fragments/header :: header" />
+<div th:replace="views/fragments/nav :: nav" />
+<div align="center">
+	<h1>Payment Done. Thank you for purchasing our products</h1>
+	<br/>
+	<h2>Receipt Details:</h2>
+	<table>
+		<tr>
+			<td><b>Merchant:</b></td>
+			<td>LambdaBuy Company Ltd.</td>
+		</tr>
+		<tr>
+			<td><b>Payer:</b></td>
+			<td th:text="${payer.firstName} + ' ' + ${payer.lastName}"></td>		
+		</tr>
+		<tr>
+			<td><b>Description:</b></td>
+			<td th:text="${transaction.description}"></td>
+		</tr>	
+		<tr>
+			<td><b>Subtotal:</b></td>
+			<td th:text="${transaction.amount.details.subtotal}"> USD</td>
+		</tr>
+		<tr>
+			<td><b>Shipping:</b></td>
+			<td th:text="${transaction.amount.details.shipping}"> USD</td>
+		</tr>
+		<tr>
+			<td><b>Tax:</b></td>
+			<td th:text="${transaction.amount.details.tax}"> USD</td>
+		</tr>
+		<tr>
+			<td><b>Total:</b></td>
+			<td th:text="${transaction.amount.total}"> USD</td>
+		</tr>						
+	</table>
+</div>
+</body>
+</html>
