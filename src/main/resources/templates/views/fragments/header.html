@@ -1,4 +1,56 @@
 <div class="row" th:fragment="header">
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-md navbar-fixed-top navbar-default bg-light navbar-light"
+            style="background-color: rgb(233, 220, 38) !important;">
+            <a class="navbar-brand border " th:href="@{/shop}" style="width: 7%;">
+                <img th:src="@{/images/logo.png}" alt="" class="src" style="width:100%; height: 10%;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav position-relative m-auto" style="width: 80%; letter-spacing: 2px;">
+                    <li class="nav-item position-relative pr-10">
+                        <a class="nav-link position-relative ml-20" th:href="@{/shop}"><i
+                                class="iconmenu fas fa-home"></i><b>Trang chủ</b></a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link position-relative" th:href="@{/contact/view}"><i
+                                class="iconmenu fas fa-address-card"></i><b>Liên hệ</b></a>
+                    </li>
+                    <li class="nav-item position-relative">
+                    	<span th:if="${user == null}">
+                    			<a class="nav-link position-relative"  th:href="@{/login}"><i class="fa fa-user" style="font-size: 20px;"></i></a>
+						</span>
+			    		<span th:unless="${user == null}">
+		    				<a class="nav-link position-relative"  th:href="@{/user/info}"><i class="fa fa-user" style="font-size: 20px;"></i><span th:text="${profile.firstName} + ' ' + ${profile.lastName}"></span></a>
+							
+			    		</span>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link position-relative" th:href="@{/shopping-cart/views}"><i class="fa fa-shopping-cart"><span th:text="${inCart}"></span></i></a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link position-relative" href="#"><i class="fa fa-fw fa-search" data-toggle="modal"
+                                data-target="#myModal_Search
+                " aria-hidden="true" style="font-size: 20px;"></i>
+                		</a>
+                	</li>
+                	<li class="nav-item position-relative">
+                		<span th:unless="${user == null}">
+			    			<a th:href="@{/logout}"><img th:src="@{/images/logout.png}"
+							class="logout nav-link position-relative" style="width: 70%" alt="logout"></a>
+		    			</span>
+                	</li>
+                </ul>
+            </div>
+        </nav>
+	</div>
+
+        <br>
+        
+        
+	<!-- 
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-2 pt-3">
@@ -43,4 +95,5 @@
 			</div>
 		</div>
 	</div>
+	 -->
 </div>

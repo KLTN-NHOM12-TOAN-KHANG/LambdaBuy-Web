@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="views/fragments/head :: head" />
+<title>Chi tiết sản phẩm</title>
 <link rel="stylesheet" th:href="@{/css/demosp.css}">
-</head>
 <body>
 	<div th:replace="views/fragments/header :: header" />
-	<div th:replace="views/fragments/nav :: nav" />
 	
 	<div class="row">
       <div class="container"> 
@@ -14,15 +13,15 @@
             <div class="wrapper row"> 
               <div class="preview col-md-6"> 
               <div class="preview-pic tab-content"> 
-                <div class="tab-pane active" id="pic-1"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den(1).jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
+                <div class="tab-pane active product" id="pic-1"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den(1).jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
                 </div> 
-                <div class="tab-pane" id="pic-2"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den1.jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
+                <div class="tab-pane product" id="pic-2"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den1.jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
                 </div> 
-                <div class="tab-pane" id="pic-3"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den2.jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
+                <div class="tab-pane product" id="pic-3"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den2.jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
                 </div> 
-                <div class="tab-pane" id="pic-4"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den3.jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
+                <div class="tab-pane product" id="pic-4"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den3.jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
                 </div> 
-                <div class="tab-pane" id="pic-5"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den4.jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
+                <div class="tab-pane product" id="pic-5"><img src="https://www.binhminhdigital.com/StoreData/images/Product/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den4.jpg" alt="canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den">
                 </div> 
               </div> 
               <ul class="preview-thumbnail nav nav-tabs"><div class="logo_menuchinh" style="float:left; padding-top:5px; padding-left:10px; columns: #000000; margin-left:auto; margin-right:auto; text-align:center; line-height:40px; font-size:16px;font-weight:bold;font-family:Arial">CAMERADIGITAL.COM</div><div class="menu-icon"><span></span></div> 
@@ -71,7 +70,13 @@
     </div>  
   </div>       
     <!------------------------------------------->
+    <!-- ------------------------------------- -->
+	<header th:replace="views/fragments/info1 :: info1" />
+
+	<!-- ------------------------------------- -->
+	<header th:replace="views/fragments/info2 :: info2" />
     <hr>
     <div th:replace="views/fragments/footer :: footer"/>
+	<div th:replace="views/fragments/search :: search" />
 </body>
 </html>

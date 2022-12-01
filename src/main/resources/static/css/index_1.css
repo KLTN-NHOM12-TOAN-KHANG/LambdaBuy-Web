@@ -1,0 +1,135 @@
+*{
+    padding: 0px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font: fantasy;
+}
+.outer
+{
+    background-color: rgba(255, 255, 255, 0.753);
+    padding: 16px;
+    margin-top: 30px;
+    height: 3000px; /* Used in this example to enable scrolling */
+
+}
+.header{
+    background-color: white;
+}
+.menu
+{
+    background-color: black !important;
+}
+.menu
+{
+    background-color: black;
+    
+}
+.gt
+{
+    background-color: #a1a1a83b;
+}
+.menu a{
+    color: rgb(233, 227, 227);
+    font-size: 20px;
+    font-weight: bold;
+
+    
+}
+.menu li:hover
+{
+    background-color: black !important;
+}
+.menu a:hover{
+    text-decoration: none;
+}
+.menu a:hover{
+    
+    color: red;
+}
+
+ .sp .card:hover{
+     transform: scale(1.1,1.1);
+     transition-property: all;
+     transition-duration: 1s;
+     transition-timing-function:linear;
+     
+ }
+ .sp .card{
+    transition-property: all;
+    transition-duration: 0.1s;
+    transition-timing-function:linear;
+ }
+ .muaa:hover{
+    color: black;
+    background-color: white`;
+ }
+
+  .quenmatkhau a:hover
+ {
+     color: red;
+ }
+ .sp{
+     box-shadow: 3px 3px 10px black;
+ }
+ .logo 
+ {
+     height: 50px;
+ }
+ h5
+ {
+     border-bottom: 2px double black;
+ }
+ .help a{
+     color: black;
+ }
+.formlg
+{
+    background-color: linear-gradient(180deg, purple, pink);
+}
+.card:hover{
+
+    box-shadow: 0px 10px 10px #808080;
+}
+.col1_2
+{
+    background-color: white;
+}
+
+.tintuc h5:hover
+{
+    color: red;
+}
+.neww label:hover
+{
+    color: red;
+}
+.nav-link
+{
+    color: black !important;
+    font-size: 20px;
+
+}
+.nav-link:hover
+{
+    color: rgb(253, 253, 253) !important;
+    text-transform: uppercase;
+    border-bottom: rgb(240, 136, 136);
+}
+.modalDangNhap:hover{
+    color: red;
+}
+#danhgiaiPhone a
+{
+    font-size: 17px;
+    text-decoration: none;
+}
+#xemThemCauHinhChiTiet label a:hover
+{
+    color: blue;
+    background-color: white;
+}
+#gioHang
+{
+    box-shadow: 3px 3px 10px black;
+}
+

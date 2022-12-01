@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<!-- Basic -->
+
+<head th:replace="views/fragments/head :: head">
+</head>
+
+<body>
+	<!-- Start Main Top -->
+	<div th:replace="views/fragments/header :: header" />
+	<!-- End Main Top -->
+
+        <!--------------------------------------------------LIÊN HỆ----------------------------------------------------------------->
+
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-1 text-left">
+                    <a th:href="@{/shop}" style="color: black; text-decoration: none;"><button class="btn btn-light"><b>Trang chủ</b></button></a>
+                        <span style="font-size: 18px;">-></span><a th:href="@{/contact/view}" style=" text-decoration: none;">
+                            <button class="btn btn-light"><b>Liên hệ</b></button>
+                        </a>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
+                    <h4>THÔNG TIN LIÊN HỆ</h4>
+                    <p>Thành lập năm 2003, LambdaBuy Website bán hàng trực tuyến được các nhà phân phối tin tưởng. 
+                    	Từ tháng 12 năm 2022, LambdaBuy tự hào là người tiên phong
+                        cho ra mắt thương hiệu nền tảng mua bán hàng trực tuyến của người Việt</p>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp; 12 Nguyễn Văn Bảo, Phường 4, Quận Gò
+                        Vấp, TP. Hồ Chí Minh.</p>
+                    <p><i class="fa fa-phone" aria-hidden="true"></i> &nbsp;08.1949.0540</p>
+                    <p><i class="fa fa-envelope" aria-hidden="true"></i> &nbsp; contact.lambdabuy@gmail.com</p>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 ">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                            <h4>GỬI THÔNG TIN</h4>
+                            <p>Bạn hãy điền nội dung tin nhắn vào form dưới đây và gửi cho chúng tôi. Chúng tôi sẽ trả
+                                lời bạn ngay sau khi nhân được.</p>
+                        </div>
+                    </div>
+                    <form action="#" class="form">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+                                    <label class="label-control"><b>Họ tên</b><span style="color: red;">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Nguyễn Văn A">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+                                    <label class="label-control"><b>Điện thoại</b><span
+                                            style="color: red;">*</span></label>
+                                    <input type="text" class="form-control" placeholder="0337934563">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                                    <label class="label-control"><b>Email</b><span style="color: red;">*</span></label>
+                                    <input type="text" class="form-control" placeholder="hello.nguyenvana@gmail.com">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                                    <label class="label-control"><b>Nội dung</b><span
+                                            style="color: red;">*</span></label>
+                                    <textarea rows="8" cols="85" class="form-control"
+                                        placeholder="Nhập nội dung ở đây bạn nhé!" style=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                                   <input type="button" class="btn btn-warning" value="Gửi tin nhắn" name="" >
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <h3><B>BẢN ĐỒ CỬA HÀNG</B></h3>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="box-maps margin-top-10 margin-bottom-10">
+               <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=12 nguyễn văn bảo, phường 4, quận gò vấp&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://piratebay-proxys.com/">Piratebay</a></div><style>.mapouter{position:relative;text-align:right;width:100%;height:400px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:400px;}.gmap_iframe {height:400px!important;}</style></div>
+            </div>
+        </div>
+	
+	
+		<!-- End copyright  -->
+
+	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+	<!-- ALL JS FILES -->
+	<div th:replace="views/fragments/footer :: footer"></div>
+</body>
+
+</html>
