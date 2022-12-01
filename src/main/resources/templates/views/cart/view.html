@@ -6,9 +6,81 @@
 	<div>
 		<!--  th:with="cart=${sessionScope['scopeTarget.cartItemService]}" -->
 		<div th:replace="views/fragments/header :: header" />
-		<div th:replace="views/fragments/nav :: nav" />
 
-		<h1>Giỏ hàng</h1>
+		<div class="container ">
+			<table class="table table-hover table-condensed">
+				<thead style="background-color: rgb(233, 220, 38);">
+					<tr>
+						<th>Tên sản phẩm</th>
+						<th style="width: 100px;">Giá</th>
+						<th style="width: 80px;">Số lượng</th>
+						<th class="text-center">Thành tiền</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<div th:each="item : ${CART_ITEMS}">
+						<form th:action="@{/shopping-cart/update}" method="post">
+						<input type="hidden" name="productId" th:value="${item.productId}" />
+						<tr>
+							<td data-th="Product">
+								<div class="row ">
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+										<img
+											th:src="@{/images/iPhone/iphone-11-pro-max-black-400x460.png}"
+											alt="" class="" style="width: 100%">
+									</div>
+									<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 t"></div>
+									<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mt-2">
+										<h4 th:text="${item.name}"></h4>
+									</div>
+								</div>
+							</td>
+							<td data-th="Price" style="float: left;" th:text="${item.price}"></td>
+							<td data-th="Quantity"><input
+								class="form-control text-center" name="quantity" th:value="${item.quantity}"
+								onblur="this.form.submit()"></td>
+							<td data-th="Subtotal" class="text-center"
+								th:text="${item.price*item.quantity}"></td>
+							<td class="actions" data-th="">
+								<button class="btn btn-danger btn-sm">
+									<a th:href="@{/shopping-cart/del/{id}(id = ${item.productId })}">
+										Xóa
+									</a>
+							</td>
+							</button>
+							</td>
+						</tr>
+						</form>
+					</div>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td style="text-align: left;"><a
+							th:href="@{/shopping-cart/clear}">
+								<button type="button" class="btn btn-danger">Xóa hết</button>
+						</a> <a th:href="@{/shop}">
+								<button type="button" class="btn btn-success">
+									<i class="fa fa-angle-left"></i> Tiếp tục mua hàng
+								</button>
+						</a></td>
+						<td colspan="2" style="text-align: left;">Tổng tiền</td>
+						<td class=" text-center"><strong th:text="${TOTAL}"></strong></td>
+						<td><span th:if="${CART_ITEMS.size() != 0 && user != null}">
+								<a class="btn btn-success" th:href="@{/authorize_payment/view}">Thanh
+									toán</a>
+						</span> <span th:if="${CART_ITEMS.size() != 0 && user == null}"> <a
+								class="btn btn-success" th:href="@{/login}">Thanh toán</a>
+						</span> <span th:unless="${CART_ITEMS.size() != 0}"> <a
+								class="btn btn-success" href="#">Thanh toán</a>
+						</span></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+
+		<!-- 
+			<h1>Giỏ hàng</h1>
 		<br />
 		<br />
 
@@ -63,20 +135,17 @@
 			</div>
 
 		</div>
+		 -->
 
-		<br />
-		<br />
+		<br /> <br />
+		<!-- ------------------------------------- -->
+		<header th:replace="views/fragments/info1 :: info1" />
 
-		<jsp:include page="footer.jsp"></jsp:include>
-</body>
-</html>
+		<!-- ------------------------------------- -->
+		<header th:replace="views/fragments/info2 :: info2" />
 
-<div th:replace="views/fragments/footer :: footer" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<!------------------------------------------->
+		<footer th:replace="views/fragments/footer :: footer" />
+		<div th:replace="views/fragments/search :: search" />
 </body>
 </html>

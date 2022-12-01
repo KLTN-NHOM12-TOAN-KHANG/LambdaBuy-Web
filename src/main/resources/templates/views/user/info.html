@@ -11,7 +11,6 @@
 	<!-- End Main Top -->
 
 	<!-- Start Main Top -->
-	<header th:replace="views/fragments/nav :: nav" />
 	<!-- End Main Top -->
 
 	<!-- End All Title Box -->
@@ -24,7 +23,7 @@
              -->
 
 			<form action="/user/update-info" method="post" name="signupForm"
-				id="signupForm">
+				id="signupForm" enctype="multipart/form-data" >
 
 				<img src="" id="signupLogo" />
 
@@ -77,8 +76,15 @@
 						<td class="w-25 text-left">
 							<label class="inputLabel" for="avatar">Avatar *</label>
 						</td>
-						<td class="w-75 text-left">
-							<input type="text" id="avatar" th:value="${profile.avatar}" name="avatar">
+						<td>
+							<div class="custom-file mb-4">
+								<input type="file" name="avatar"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<img alt="" th:src="${'data:image/png;base64,' + base64}" style="width: 100px;height: 100px;">
 						</td>
 					</tr>
 					<tr>

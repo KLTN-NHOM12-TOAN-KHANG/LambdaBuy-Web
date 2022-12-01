@@ -18,54 +18,83 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="views/fragments/head :: head" />
 <title>TRANG CHỦ</title>
-<style>
-* {
-	padding: 0;
-	box-sizing: border-box;
-}
-
-ul.register li {
-	display: none;
-}
-
-div.account:hover ul.register li {
-	display: block;
-	position: relative;
-}
-
-ul.navbar-nav li:hover a.nav-link {
-	color: red;
-}
-</style>
 </head>
 <body>
 	<header th:replace="views/fragments/header :: header" />
-	<div th:replace="views/fragments/nav :: nav" />
 	<div th:replace="views/fragments/carousel :: carousel" />
 	<!------------------------------------------------------------------------------>
 
-
-	<main class="container">
+	<!-- 
 		<div th:each="product : ${products}" class="d-inline">
 			<div class="col-2 d-inline-block text-center thumbnail mb-1">
-				<a th:href="@{/product/detail/{id}(id = ${product.id})}" target="_self"> <img
+				<a th:href="@{/product/detail/{id}(id = ${product.id})}"
+					target="_self"> <img
 					th:src="@{/images/canon/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den(1).jpg}"
 					class="img-thumbnail" style="position: relative;" alt="">
-					<h6 th:text="${product.name}"></h6> 
-					<h6 th:text="${product.unitPrice}" class="text-danger"></h6> 
-					<span class="badge badge-secondary"><strike><i th:text="22.000.000"></i></strike></span> <br>
-				</a>
-				<a th:href="@{/shopping-cart/add/{id}(id = ${product.id})}">
+					<h6 th:text="${product.name}"></h6>
+					<h6 th:text="${product.unitPrice}" class="text-danger"></h6> <span
+					class="badge badge-secondary"><strike><i
+							th:text="22.000.000"></i></strike></span> <br>
+				</a> <a th:href="@{/shopping-cart/add/{id}(id = ${product.id})}">
 					<button class="btn btn-primary">Mua hàng</button>
 				</a>
 			</div>
 		</div>
+	 -->
+	<!-- 
+	<div class="row" th:fragment="list" xmlns:th="http://www.thymeleaf.org">
+		<div th:each="product, stat : ${products}" class="col-sm-4">
+			<div class="card mb-3">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${product.name}">Product name</h5>
+					<p class="card-text" th:text="${product.price}">Price</p>
+					<a href="#" class="btn btn-primary">Buy</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	 -->
+
+	<main class="container-fluid">
+		<div class="container-fluid mt-3 mb-3 col1_2">
+			<div class="row" th:fragment="list"
+				xmlns:th="http://www.thymeleaf.org">
+				<div th:each="product, stat : ${products}" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="card mb-3 text-center" style="">
+						<a th:href="@{/product/detail/{id}(id = ${product.id})}"
+							style="text-decoration: none; color: black;"> <img
+							class="card-img-top"
+							th:src="@{/images/canon/canon-eos-m50-kit-1545mm-ef-50mm-f18-stm-den(1).jpg}"
+							alt="Card image" style="width: 50%">
+							<div class="card-body">
+								<h4 class="card-title" th:text="${product.name}"></h4>
+								<p class="card-text">
+									<span style="color: red;"> <b
+										th:text="${product.unitPrice}">₫</b> &nbsp;<strike><i>33.990.000₫</i></strike></span><br>
+									<span>Tặng 2 suất mua tai nghe cực xịn (không áp dụng
+										thêm khuyến mãi khác) </span>
+								</p>
+								<a th:href="@{/shopping-cart/add/{id}(id = ${product.id})}">
+									<button class="btn btn-primary">Mua hàng</button>
+								</a>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 
+	<!-- ------------------------------------- -->
+	<header th:replace="views/fragments/info1 :: info1" />
+
+	<!-- ------------------------------------- -->
+	<header th:replace="views/fragments/info2 :: info2" />
 
 	<!------------------------------------------->
 	<hr>
-	<div class="row">
+	<!-- 
+		<div class="row">
 		<div class="container">
 			<nav
 				class="navbar navbar-expand-sm bg-white navbar-white row justify-content-center">
@@ -79,6 +108,7 @@ ul.navbar-nav li:hover a.nav-link {
 		</div>
 	</div>
 	<br>
+	 -->
 	<!------------------------------------------->
 	<!-- 
   <div class="row">
@@ -96,5 +126,6 @@ ul.navbar-nav li:hover a.nav-link {
   </div>
    -->
 	<footer th:replace="views/fragments/footer :: footer" />
+	<div th:replace="views/fragments/search :: search" />
 </body>
 </html>
